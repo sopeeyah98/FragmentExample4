@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 
 public class MainActivity extends AppCompatActivity {
@@ -13,9 +14,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        loadFragment(new OneFragment(), R.id.fragContainer1);
-        loadFragment(new TwoFragment(), R.id.fragContainer2);
+        int orientation = this.getResources().getConfiguration().orientation;
+        if (orientation == Configuration.ORIENTATION_PORTRAIT){
+            loadFragment(new OneFragment(), R.id.fragContainer1);
+            loadFragment(new TwoFragment(), R.id.fragContainer2);
+        } else if (orientation == Configuration.ORIENTATION_LANDSCAPE){
+            loadFragment(new OneFragment(), R.id.fragContainer1_land);
+            loadFragment(new TwoFragment(), R.id.fragContainer2_land);
+        }
     }
 
     public void loadFragment(Fragment fragment, int id){

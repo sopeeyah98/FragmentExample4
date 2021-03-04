@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 public class OneFragment extends Fragment {
     private EditText editText_name, editText_zip;
     private Button button;
+    private SharedViewModel viewModel;
 
     @Nullable
     @Override
@@ -25,9 +26,14 @@ public class OneFragment extends Fragment {
         editText_zip = v.findViewById(R.id.editText_zip);
         button = v.findViewById(R.id.button_submit);
 
+        viewModel = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // send name to view
+                UserInformation information = new UserInformation(editText_name.getText().toString(), editText_zip.getText().toString());
+                viewModel.setInformation(information);
             }
         });
 
